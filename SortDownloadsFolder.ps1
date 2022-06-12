@@ -1,7 +1,15 @@
+# @Author: Duncan1106, Github
+# Sorter with options to enable or disable different 
+# Extensions to sort in the different Folders
+
 # ==================== SORTER ==================== #
+
+
 
 Write-Host "================================================"
 Write-Host "=============== Downloads Sorter ==============="
+Write-Host "================================================"
+Write-Host "=============== by Duncan1106 =================="
 Write-Host "================================================"
 
 Write-Debug "declared the different folders"
