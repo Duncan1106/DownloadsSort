@@ -1,6 +1,6 @@
 # @Author: Duncan1106, Github
-# Sorter with options to enable or disable different 
-# Extensions to sort in the different Folders
+# Sorter with options to enable or disable different
+# Extensions to sort in different folders
 
 # ==================== SORTER ==================== #
 
