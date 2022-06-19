@@ -1,4 +1,6 @@
-# @Author: Duncan1106, Github
+## ====================== ##
+##   @Author Duncan1106   ##
+## ====================== ##
 # Sorter with options to enable or disable different
 # Extensions to sort in different folders
 
