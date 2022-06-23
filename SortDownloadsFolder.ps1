@@ -94,9 +94,10 @@ Function sorter{
             }
         }
         Catch {
-            Write-Host "An Error occured"
+            Write-Host " "
             Write-Host $_.Exception.Message -ForegroundColor Red
             Write-Host $_.ScriptStackTrace
+            Write-Host " "
         }
 
     }
