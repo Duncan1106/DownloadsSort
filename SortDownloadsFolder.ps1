@@ -6,6 +6,9 @@
 
 # ==================== SORTER ==================== #
 
+# Error catching
+$ErrorActionPreference = "Stop"
+
 Write-Host "================================================"
 Write-Host "=============== Downloads Sorter ==============="
 Write-Host "================================================"
@@ -18,6 +21,9 @@ $DownloadsFolderPath = (New-Object -ComObject Shell.Application).NameSpace('shel
 
 # Programmsfolder
 $ProgrammsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\Programms\"
+
+# Documetsfolder
+$DocumentsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\"
 
 # Videofolder
 $VideosFolderPath = [Environment]::GetFolderPath("MyVideos") + "\Downloaded\"
@@ -35,6 +41,8 @@ $DownloadsFiles = Get-ChildItem -Path $DownloadsFolderPath -File
 Function sorter{
     Write-Host "Include programms? y or n"
     $programms = Read-Host "Input: "
+    Write-Host "Include documents? y or n"
+    $documents = Read-Host "Input: "
     Write-Host "Include videos? y or n"
     $videos = Read-Host "Input: "
     Write-Host "Include music? y or n"
@@ -43,39 +51,54 @@ Function sorter{
     $pictures = Read-Host "Input: "
 
     foreach ($File in $DownloadsFiles) {
-        $FileExtension = [System.IO.Path]::GetExtension($File).Split('.')[1]
+        Try {
+            $FileExtension = [System.IO.Path]::GetExtension($File).Split('.')[1]
 
-        if ($FileExtension -cmatch "exe" -or $FileExtension -cmatch "msi") {
-            if ($programms -cmatch "y") {
-               Move-Item -Path $File.FullName -Destination $ProgrammsFolderPath
-               Write-Host "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
-               Write-Host "Sorted Programms"
+            if ($FileExtension -cmatch "exe" -or $FileExtension -cmatch "msi") {
+                if ($programms -cmatch "y") {
+                   Move-Item -Path $File.FullName -Destination $ProgrammsFolderPath
+                   Write-Host "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
+                   Write-Host "Sorted Programms"
+                }
+            }
+
+            if ($FileExtension -cmatch "mp4" -or $FileExtension -cmatch "m4v" -or $FileExtension -cmatch "mkv") {
+                if ($videos -cmatch "y") {
+                    Move-Item -Path $File.FullName -Destination $VideosFolderPath
+                    Write-Host "Succesfully moved $($File.FullName) to $VideosFolderPath"
+                    Write-Host "Sorted Videos"
+                }
+            }
+
+            if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"  ){
+                if ($music -cmatch "y") { 
+                    Move-Item -Path $File.FullName -Destination $MusicFolderpath
+                    Write-Host "Succesfully moved $($File.FullName) to $MusicFolderPath"
+                    Write-Host "Sorted Music"
+                }
+            }
+
+            if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
+                if ($pictures -cmatch "y") { 
+                    Move-Item -Path $File.FullName -Destination $PictureFolderPath
+                    Write-Host "Succesfully moved $($File.FullName) to $PictureFolderPath"
+                    Write-Host "Sorted Pictures"
+                }
+            }
+            if ($FileExtension -cmatch "pdf" -or $FileExtension -cmatch "docx") {
+                if($documents -cmatch "y") {
+                    Move-Item -Path $File.FullName -Destination $DocumentsFolderPath
+                    Write-Host "Succesfully moved $($File.FullName) to $DocumentsFolderPath"
+                    Write-Host "Sorted Documents"
+                }
             }
         }
-
-        if ($FileExtension -cmatch "mp4" -or $FileExtension -cmatch "m4v" -or $FileExtension -cmatch "mkv") {
-            if ($videos -cmatch "y") {
-                Move-Item -Path $File.FullName -Destination $VideosFolderPath
-                Write-Host "Succesfully moved $($File.FullName) to $VideosFolderPath"
-                Write-Host "Sorted Videos"
-            }
+        Catch {
+            Write-Host "An Error occured"
+            Write-Host $_.Exception.Message -ForegroundColor Red
+            Write-Host $_.ScriptStackTrace
         }
 
-        if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"  ){
-            if ($music -cmatch "y") { 
-                Move-Item -Path $File.FullName -Destination $MusicFolderpath
-                Write-Host "Succesfully moved $($File.FullName) to $MusicFolderPath"
-                Write-Host "Sorted Music"
-            }
-        }
-
-        if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
-            if ($pictures -cmatch "y") { 
-                Move-Item -Path $File.FullName -Destination $PictureFolderPath
-                Write-Host "Succesfully moved $($File.FullName) to $PictureFolderPath"
-                Write-Host "Sorted Pictures"
-            }
-        }
     }
     Write-Host "Completed sorting the different file types in their own folder"
 }
