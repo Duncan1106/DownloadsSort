@@ -20,6 +20,9 @@ $DownloadsFolderPath = (New-Object -ComObject Shell.Application).NameSpace('shel
 # Programmsfolder
 $ProgrammsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\Programms\"
 
+# Documentsfolder
+$DocumentsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\Downloaded\"
+
 # APKsfolder
 $ApkFolderPath = $ProgrammsFolderPath + "\APKs"
 
@@ -39,6 +42,8 @@ $DownloadsFiles = Get-ChildItem -Path $DownloadsFolderPath -File
 Function sorter{
     Write-Host "Include programms? y or n"
     $programms = Read-Host "Input: "
+    Write-Host "Include documents? y or n"
+    $documents = Read-Host "Input: "
     Write-Host "Include apks? y or n"
     $apks = Read-Host "Input: " 
     Write-Host "Include videos? y or n"
@@ -57,6 +62,13 @@ Function sorter{
                 if ($programms -cmatch "y" -or $programms -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $ProgrammsFolderPath
                     Write-Host "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
+                    Write-Host "Sorted Programms`n"
+                }
+            }
+            if ($FileExtension -cmatch "docx" -or $FileExtension -cmatch "doc" -or $FileExtension -cmatch "pdf") {
+                if ($documents -cmatch "y" -or $documents -cmatch "Y") {
+                    Move-Item -Path $File.FullName -Destination $DocumentsFolderPath
+                    Write-Host "Succesfully moved $($File.FullName) to $DocumentsFolderPath "
                     Write-Host "Sorted Programms`n"
                 }
             }
