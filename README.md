@@ -23,18 +23,22 @@ there are 2 ways of using this simple programm
 -   ``` Advanced ``` : you change following parts in my script
 
 ```bash
-    - line 21: $ProgrammsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Programms\' for your Programms
-
-    - line 24: $DocumentsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Downloaded\' for your documents
-
-    - line 27: $ApkFolderPath = $ProgrammsFolderPath + '\APKs' for your APKs
-
-    - line 30: $VideosFolderPath = [Environment]::GetFolderPath('MyVideos') + '\Downloaded\' for your Videos
-
-    - line 33: $MusicFolderpath = [Environment]::GetFolderPath("MyMusic") + '\Downloaded\' for your audio
-
-    - line 36: $PictureFolderPath = [Environment]::GetFolderPath('MyPictures') + '\Downloaded\' for your pictures
-
+    - line 21: $ProgrammsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Programms\' #for your Programms
+```
+```bash
+    - line 24: $DocumentsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Downloaded\' #for your documents
+´´´
+```bash
+    - line 27: $ApkFolderPath = $ProgrammsFolderPath + '\APKs' #for your APKs
+```
+```bash
+    - line 30: $VideosFolderPath = [Environment]::GetFolderPath('MyVideos') + '\Downloaded\' #for your Videos
+```
+```bash
+    - line 33: $MusicFolderpath = [Environment]::GetFolderPath("MyMusic") + '\Downloaded\' #for your audio
+```
+```bash
+    - line 36: $PictureFolderPath = [Environment]::GetFolderPath('MyPictures') + '\Downloaded\' #for your pictures
 ```
 
 
