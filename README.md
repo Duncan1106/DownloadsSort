@@ -16,7 +16,7 @@ Sorts:
 
 into prespecified but customisable folders
 
-## Documentation
+## Installation and Customisations
 there are 2 ways of using this simple programm
 
 -   ``` Easy ``` : you adapte to my predefinded folderstructure and go on and just use it
