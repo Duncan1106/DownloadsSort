@@ -21,9 +21,9 @@ there are 2 ways of using this simple programm
 
 -   ``` Easy ``` : you adapte to my predefinded folderstructure and go on and just use it
 -   ``` Advanced ``` : you change following parts in my script
-
+- line 21: 
 ```bash
-    - line 21: $ProgrammsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Programms\' #for your Programms
+    $ProgrammsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Programms\' #for your Programms
 ```
 ```bash
     - line 24: $DocumentsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Downloaded\' #for your documents
