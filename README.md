@@ -20,6 +20,11 @@ into prespecified but customisable folders
 there are 2 ways of using this simple programm
 
 -   ``` Easy ``` : you adapte to my predefinded folderstructure and go on and just use it
+    -   for Programms and Apks you create a folder in your documents, one named 'Programms' and one named 'APKs' inside of the first folder
+    -   for pictures you create a folder called 'Downloaded' in your Pictures folder created by WindowsStatsLogger
+    -   for videos, the same as above, but in the video folder created by Windows
+    -   for music the same as before
+ 
 -   ``` Advanced ``` : you change following parts in my script
 
 ```bash
