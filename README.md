@@ -50,3 +50,7 @@ there are 2 ways of using this simple programm
 ## Badges
 ![GitHub language count](https://img.shields.io/github/languages/count/Duncan1106/WindowsStatsLogger?color=lime&label=languages&logo=gray)
 ![GitHub Repo stars](https://img.shields.io/github/stars/Duncan1106/DownloadsSort?style=plastic)
+
+## Security
+
+[![PSScriptAnalyzer](https://github.com/Duncan1106/DownloadsSort/actions/workflows/powershell.yml/badge.svg)](https://github.com/Duncan1106/DownloadsSort/actions/workflows/powershell.yml)
