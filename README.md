@@ -54,3 +54,4 @@ there are 2 ways of using this simple programm
 ## Security
 
 [![PSScriptAnalyzer](https://github.com/Duncan1106/DownloadsSort/actions/workflows/powershell.yml/badge.svg)](https://github.com/Duncan1106/DownloadsSort/actions/workflows/powershell.yml)
+[![Codacy Security Scan](https://github.com/Duncan1106/DownloadsSort/actions/workflows/codacy.yml/badge.svg)](https://github.com/Duncan1106/DownloadsSort/actions/workflows/codacy.yml)
