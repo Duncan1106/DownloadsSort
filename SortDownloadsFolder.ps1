@@ -118,11 +118,11 @@ Function sorter{
 Write-Host "1: Enter 1 to sort the Downloads Folder"
 Write-Host "Q: Enter Q to quit."
 
-$input = (Read-Host "Please decide: ").ToUpper()
+$user_input = (Read-Host "Please decide: ").ToUpper()
 
-switch ($input){
+switch ($user_input){
     '1' {sorter}
     'Q' {Write-Host "The script has been terminated" -BackgroundColor Red -ForegroundColor White}
-    Default {Write-Host "Your selection = $input, is not valid. Please try again." -BackgroundColor Red -ForegroundColor White}
+    Default {Write-Host "Your selection = $user_input, is not valid. Please try again." -BackgroundColor Red -ForegroundColor White}
 }
 pause
