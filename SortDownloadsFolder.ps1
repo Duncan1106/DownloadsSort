@@ -1,5 +1,5 @@
 # @Author: Duncan1106, Github
-# Sorter with options to enable or disable different 
+# Sorter with options to enable or disable different
 # Extensions to sort in the different Folders
 
 # check for admin priviledges
@@ -10,7 +10,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~ Downloads Sorter ~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ by Duncan1106 ~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~~~~~~~~~~~~~ by Dsuncan1106 ~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 Write-Debug "declared the different folders"
@@ -45,7 +45,7 @@ Function sorter{
     Write-Host "Include documents? y or n"
     $documents = Read-Host "Input: "
     Write-Host "Include apks? y or n"
-    $apks = Read-Host "Input: " 
+    $apks = Read-Host "Input: "
     Write-Host "Include videos? y or n"
     $videos = Read-Host "Input: "
     Write-Host "Include music? y or n"
@@ -87,20 +87,20 @@ Function sorter{
                 }
             }
             if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"  ){
-                if ($music -cmatch "y" -or $music -cmatch "Y") { 
+                if ($music -cmatch "y" -or $music -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $MusicFolderpath
                     Write-Host "Succesfully moved $($File.FullName) to $MusicFolderPath"
                     Write-Host "Sorted Music`n"
                 }
             }
             if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
-                if ($pictures -cmatch "y" -or $pictures -cmatch "Y") { 
+                if ($pictures -cmatch "y" -or $pictures -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $PictureFolderPath
                     Write-Host "Succesfully moved $($File.FullName) to $PictureFolderPath"
                     Write-Host "Sorted Pictures`n"
                 }
             }
-            
+
         }
         Catch {
             Write-Host ""
