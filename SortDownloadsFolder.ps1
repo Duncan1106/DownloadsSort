@@ -10,7 +10,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~ Downloads Sorter ~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ by Dsuncan1106 ~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~~~~~~~~~~~~~ by Duncan1106 ~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 Write-Debug "declared the different folders"
