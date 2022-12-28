@@ -7,7 +7,7 @@ A simple tool for sorting files in a folder by file extension.
 
 ## Getting Started
     Download and extract the repository.
-    Open the File Sorter.ps1 script in PowerShell.
+    Open the "startSortDownloadsFolder.bat" script with double click.
     A form will appear with a list of file extensions and two buttons: "Select Folder" and "Sort Files".
     Select a file extension from the list.
     Click the "Select Folder" button and choose the target folder where you want to move the files with the selected file extension.
