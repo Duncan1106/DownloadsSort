@@ -1,50 +1,22 @@
 
-# Download Sorter
+## File Sorter
+A simple tool for sorting files in a folder by file extension.
 
-Sorts files from your downloads folder for you.
+## Prerequisites
+    PowerShell
 
+## Getting Started
+    Download and extract the repository.
+    Open the File Sorter.ps1 script in PowerShell.
+    A form will appear with a list of file extensions and two buttons: "Select Folder" and "Sort Files".
+    Select a file extension from the list.
+    Click the "Select Folder" button and choose the target folder where you want to move the files with the selected file extension.
+    Click the "Sort Files" button to move the files with the selected file extension to the target folder.
 
-## Features
-
-Sorts:
--   programms with extensions exe or msi
--   documents with extensions doc, docx or pdf
--   applications with extensions apk or apks
--   videos with extensionsmp4, m4v or mkv
--   audio with extensions mp3, wav, acc, mid or m4a
--   photos with extensions jpg, png or xcf
-
-into prespecified but customisable folders
-
-## Installation and Customisations
-there are 2 ways of using this simple programm
-
--   ``` Easy ``` : you adapte to my predefinded folderstructure and go on and just use it
-    -   for Programms and Apks you create a folder in your documents, one named 'Programms' and one named 'APKs' inside of the first folder
-    -   for pictures you create a folder called 'Downloaded' in your Pictures folder created by WindowsStatsLogger
-    -   for videos, the same as above, but in the video folder created by Windows
-    -   for music the same as before
- 
--   ``` Advanced ``` : you change following parts in my script
-
-```bash
-    - line 21: $ProgrammsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Programms\' #for your Programms
-```
-```bash
-    - line 24: $DocumentsFolderPath = [Environment]::GetFolderPath('MyDocuments') + '\Downloaded\' #for your documents
-```
-```bash
-    - line 27: $ApkFolderPath = $ProgrammsFolderPath + '\APKs' #for your APKs
-```
-```bash
-    - line 30: $VideosFolderPath = [Environment]::GetFolderPath('MyVideos') + '\Downloaded\' #for your Videos
-```
-```bash
-    - line 33: $MusicFolderpath = [Environment]::GetFolderPath("MyMusic") + '\Downloaded\' #for your audio
-```
-```bash
-    - line 36: $PictureFolderPath = [Environment]::GetFolderPath('MyPictures') + '\Downloaded\' #for your pictures
-```
+## Notes
+    The script searches for files in the Downloads folder.
+    If a file with the same name already exists in the target folder, it will be skipped.
+    If no file extension is selected or no target folder is specified, the script will output a message and skip the sorting process.
 
 
 ## Badges
