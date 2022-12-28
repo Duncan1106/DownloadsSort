@@ -1,119 +1,107 @@
-# @Author: Duncan1106, Github
-# Sorter with options to enable or disable different
-# Extensions to sort in the different Folders
+# Import the System.Windows.Forms namespace
+Add-Type -AssemblyName System.Windows.Forms
 
-# check for admin privileges
-# if the current user is not an administrator, launch the script as an administrator
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit
-}
+# Create a form
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "File Sorter"
+$form.Width = 500
+$form.Height = 500
 
-# Output welcome message
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ Downloads Sorter ~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ by Duncan1106 ~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+# Create a list box to display the file extensions
+$listBox = New-Object System.Windows.Forms.ListBox
+$listBox.Width = 200
+$listBox.Height = 400
+$listBox.Location = New-Object System.Drawing.Point(10, 10)
 
-# Declare the paths for the different destination folders
-Write-Debug "declared the different folders"
+# Add the list box to the form
+$form.Controls.Add($listBox)
+
+# Get the path to the download folder
 $DownloadsFolderPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path
-$ProgrammsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\Programms\"
-$DocumentsFolderPath = [Environment]::GetFolderPath("MyDocuments") + "\Downloaded\"
-$ApkFolderPath = $ProgrammsFolderPath + "\APKs"
-$VideosFolderPath = [Environment]::GetFolderPath("MyVideos") + "\Downloaded\"
-$MusicFolderpath = [Environment]::GetFolderPath("MyMusic") + "\Downloaded\"
-$PictureFolderPath = [Environment]::GetFolderPath("MyPictures") + "\Downloaded\"
 
-# Get all files in the Downloads folder
-$DownloadsFiles = Get-ChildItem -Path $DownloadsFolderPath -File
+# Get all file extensions in the download folder
+$fileExtensions = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory | Select-Object Extension | Sort-Object Extension -Unique
 
-# actual Sorter
-Function sorter{
-		# Prompt the user to enable or disable sorting for each type of file
-		Write-Host "Include programms? y or n"
-		$programms = Read-Host "Input: "
-		Write-Host "Include documents? y or n"
-		$documents = Read-Host "Input: "
-		Write-Host "Include apks? y or n"
-		$apks = Read-Host "Input: "
-		Write-Host "Include videos? y or n"
-		$videos = Read-Host "Input: "
-		Write-Host "Include music? y or n"
-		$music = Read-Host "Input: "
-		Write-Host "Include pictures? y or n"
-		$pictures = Read-Host "Input: "
-		Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-
-		foreach ($File in $DownloadsFiles) {
-				Try{
-						$FileExtension = [System.IO.Path]::GetExtension($File).Split('.')[1]
-
-						if ($FileExtension -cmatch "exe" -or $FileExtension -cmatch "msi") {
-								if ($programms -cmatch "y" -or $programms -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $ProgrammsFolderPath
-										Write-Host "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
-										Write-Host "Sorted Programms`n"
-								}
-						}
-						if ($FileExtension -cmatch "docx" -or $FileExtension -cmatch "doc" -or $FileExtension -cmatch "pdf") {
-								if ($documents -cmatch "y" -or $documents -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $DocumentsFolderPath
-										Write-Host "Succesfully moved $($File.FullName) to $DocumentsFolderPath "
-										Write-Host "Sorted Programms`n"
-								}
-						}
-						if ($FileExtension -cmatch "apk" -or $FileExtension -cmatch "apks") {
-								if ($apks -cmatch "y" -or $apks -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $ApkFolderPath
-										Write-Host "Succesfully moved $($File.FullName) to $ApkFolderPath"
-										Write-Host "Sorted APKs`n"
-								}
-						}
-						if ($FileExtension -cmatch "mp4" -or $FileExtension -cmatch "m4v" -or $FileExtension -cmatch "mkv") {
-								if ($videos -cmatch "y" -or $videos -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $VideosFolderPath
-										Write-Host "Succesfully moved $($File.FullName) to $VideosFolderPath"
-										Write-Host "Sorted Videos`n"
-								}
-						}
-						if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"	){
-								if ($music -cmatch "y" -or $music -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $MusicFolderpath
-										Write-Host "Succesfully moved $($File.FullName) to $MusicFolderPath"
-										Write-Host "Sorted Music`n"
-								}
-						}
-						if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
-								if ($pictures -cmatch "y" -or $pictures -cmatch "Y") {
-										Move-Item -Path $File.FullName -Destination $PictureFolderPath
-										Write-Host "Succesfully moved $($File.FullName) to $PictureFolderPath"
-										Write-Host "Sorted Pictures`n"
-								}
-						}
-
-				}
-				Catch {
-						Write-Host ""
-						Write-Host $_.Exception.Message -ForegroundColor Red
-						Write-Host $_.ScriptStackTrace
-						Write-Host ""
-				}
-		}
-		Write-Host "`nCompleted sorting the different file types in their own folder`n" -ForegroundColor Green
+# Add the file extensions to the list box
+foreach ($fileExtension in $fileExtensions) {
+  $listBox.Items.Add($fileExtension.Extension)
 }
 
-# ==================== GUI ==================== #
+# Declare a variable to store the target folder
+$global:targetFolder = ""
 
-## visable Menu for user
-Write-Host "1: Enter 1 to sort the Downloads Folder"
-Write-Host "Q: Enter Q to quit."
+# Create a button to select the target folder
+$selectFolderButton = New-Object System.Windows.Forms.Button
+$selectFolderButton.Text = "Select Folder"
+$selectFolderButton.Width = 100
+$selectFolderButton.Height = 30
+$selectFolderButton.Location = New-Object System.Drawing.Point(300, 10)
 
-$user_input = (Read-Host "Please decide: ").ToUpper()
+# Create a folder browser dialog
+$folderBrowserDialog = New-Object System.Windows.Forms.FolderBrowserDialog
 
-switch ($user_input){
-		'1' {sorter}
-		'Q' {Write-Host "The script has been terminated" -BackgroundColor Red -ForegroundColor White}
-		Default {Write-Host "Your selection = $user_input, is not valid. Please try again." -BackgroundColor Red -ForegroundColor White}
-}
-pause
+# Add a click event handler for the select folder button
+$selectFolderButton.Add_Click({
+  # Show the folder browser dialog
+  $result = $folderBrowserDialog.ShowDialog()
+
+  # Check if the user selected a folder
+  if ($result -eq "OK") {
+    # Set the selected folder as the target folder
+    $global:targetFolder = $folderBrowserDialog.SelectedPath
+    write-host "$global:targetFolder"
+  }
+})
+
+# Add the select folder button to the form
+$form.Controls.Add($selectFolderButton)
+
+# Create a button to sort the files
+$sortButton = New-Object System.Windows.Forms.Button
+$sortButton.Text = "Sort Files"
+$sortButton.Width = 100
+$sortButton.Height = 30
+$sortButton.Location = New-Object System.Drawing.Point(300, 50)
+
+# Add a click event handler for the sort button
+$sortButton.Add_Click({
+  # Get the selected file extension from the list box
+  $selectedExtension = $listBox.SelectedItem
+
+  # Check if a file extension is selected
+  if ($selectedExtension) {
+    # Check if the user entered a target folder
+    if ($global:targetFolder) {
+      # Get all files with the selected file extension in the download folder
+      $files = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory -Filter "*$selectedExtension"
+
+			# Loop through each file
+      foreach ($file in $files) {
+        # Output the file name and target folder
+				$targetFile = "$DownloadsFolderPath/$file"
+        Write-Host "Moving file $targetFile to folder $global:targetFolder"
+
+        # Move the file to the target folder
+        try {
+          # Move the file to the target folder
+          Move-Item -Path $targetFile -Destination $global:targetFolder
+        } catch {
+          # If the file already exists in the target folder, output a message and skip the file
+          Write-Output "Skipping file $file because it already exists in the target folder"
+        }
+      }
+    } else {
+      # Skip the files with the selected file extension
+      Write-Output "Skipping files with extension $selectedExtension"
+    }
+  } else {
+  # Output a message indicating that no file extension was selected
+  Write-Output "Please select a file extension from the list."
+	}
+})
+
+# Add the sort button to the form
+$form.Controls.Add($sortButton)
+
+# Show the form
+$form.ShowDialog()
