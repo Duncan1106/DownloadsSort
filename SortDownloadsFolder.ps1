@@ -1,5 +1,5 @@
 # @Author: Duncan1106, Github
-# Sorter with options to enable or disable different 
+# Sorter with options to enable or disable different
 # Extensions to sort in the different Folders
 
 # check for admin priviledges
@@ -45,7 +45,7 @@ Function sorter{
     Write-Output "Include documents? y or n"
     $documents = Read-Host "Input: "
     Write-Output "Include apks? y or n"
-    $apks = Read-Host "Input: " 
+    $apks = Read-Host "Input: "
     Write-Output "Include videos? y or n"
     $videos = Read-Host "Input: "
     Write-Output "Include music? y or n"
@@ -87,20 +87,19 @@ Function sorter{
                 }
             }
             if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"  ){
-                if ($music -cmatch "y" -or $music -cmatch "Y") { 
+                if ($music -cmatch "y" -or $music -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $MusicFolderpath
                     Write-Output "Succesfully moved $($File.FullName) to $MusicFolderPath"
                     Write-Output "Sorted Music`n"
                 }
             }
             if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
-                if ($pictures -cmatch "y" -or $pictures -cmatch "Y") { 
+                if ($pictures -cmatch "y" -or $pictures -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $PictureFolderPath
                     Write-Output "Succesfully moved $($File.FullName) to $PictureFolderPath"
                     Write-Output "Sorted Pictures`n"
                 }
-            }
-            
+            }        
         }
         Catch {
             Write-Output ""
