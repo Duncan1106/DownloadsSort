@@ -7,11 +7,11 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 # ==================== SORTER ==================== #
 
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ Downloads Sorter ~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~ by Duncan1106 ~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~ Downloads Sorter ~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~ by Duncan1106 ~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 Write-Debug "declared the different folders"
 # Downloadsfolder
@@ -40,19 +40,19 @@ $DownloadsFiles = Get-ChildItem -Path $DownloadsFolderPath -File
 
 # actual Sorter
 Function sorter{
-    Write-Host "Include programms? y or n"
+    Write-Output "Include programms? y or n"
     $programms = Read-Host "Input: "
-    Write-Host "Include documents? y or n"
+    Write-Output "Include documents? y or n"
     $documents = Read-Host "Input: "
-    Write-Host "Include apks? y or n"
+    Write-Output "Include apks? y or n"
     $apks = Read-Host "Input: " 
-    Write-Host "Include videos? y or n"
+    Write-Output "Include videos? y or n"
     $videos = Read-Host "Input: "
-    Write-Host "Include music? y or n"
+    Write-Output "Include music? y or n"
     $music = Read-Host "Input: "
-    Write-Host "Include pictures? y or n"
+    Write-Output "Include pictures? y or n"
     $pictures = Read-Host "Input: "
-    Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
     foreach ($File in $DownloadsFiles) {
         Try{
@@ -61,68 +61,68 @@ Function sorter{
             if ($FileExtension -cmatch "exe" -or $FileExtension -cmatch "msi") {
                 if ($programms -cmatch "y" -or $programms -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $ProgrammsFolderPath
-                    Write-Host "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
-                    Write-Host "Sorted Programms`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $ProgrammsFolderPath"
+                    Write-Output "Sorted Programms`n"
                 }
             }
             if ($FileExtension -cmatch "docx" -or $FileExtension -cmatch "doc" -or $FileExtension -cmatch "pdf") {
                 if ($documents -cmatch "y" -or $documents -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $DocumentsFolderPath
-                    Write-Host "Succesfully moved $($File.FullName) to $DocumentsFolderPath "
-                    Write-Host "Sorted Programms`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $DocumentsFolderPath "
+                    Write-Output "Sorted Programms`n"
                 }
             }
             if ($FileExtension -cmatch "apk" -or $FileExtension -cmatch "apks") {
                 if ($apks -cmatch "y" -or $apks -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $ApkFolderPath
-                    Write-Host "Succesfully moved $($File.FullName) to $ApkFolderPath"
-                    Write-Host "Sorted APKs`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $ApkFolderPath"
+                    Write-Output "Sorted APKs`n"
                 }
             }
             if ($FileExtension -cmatch "mp4" -or $FileExtension -cmatch "m4v" -or $FileExtension -cmatch "mkv") {
                 if ($videos -cmatch "y" -or $videos -cmatch "Y") {
                     Move-Item -Path $File.FullName -Destination $VideosFolderPath
-                    Write-Host "Succesfully moved $($File.FullName) to $VideosFolderPath"
-                    Write-Host "Sorted Videos`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $VideosFolderPath"
+                    Write-Output "Sorted Videos`n"
                 }
             }
             if ($FileExtension -cmatch "mp3" -or $FileExtension -cmatch "wav" -or $FileExtension -cmatch "acc" -or $FileExtension -cmatch "mid" -or $FileExtension -cmatch "m4a"  ){
                 if ($music -cmatch "y" -or $music -cmatch "Y") { 
                     Move-Item -Path $File.FullName -Destination $MusicFolderpath
-                    Write-Host "Succesfully moved $($File.FullName) to $MusicFolderPath"
-                    Write-Host "Sorted Music`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $MusicFolderPath"
+                    Write-Output "Sorted Music`n"
                 }
             }
             if ($FileExtension -cmatch "jpg" -or $FileExtension -cmatch "png" -or $FileExtension -cmatch "xcf"){
                 if ($pictures -cmatch "y" -or $pictures -cmatch "Y") { 
                     Move-Item -Path $File.FullName -Destination $PictureFolderPath
-                    Write-Host "Succesfully moved $($File.FullName) to $PictureFolderPath"
-                    Write-Host "Sorted Pictures`n"
+                    Write-Output "Succesfully moved $($File.FullName) to $PictureFolderPath"
+                    Write-Output "Sorted Pictures`n"
                 }
             }
             
         }
         Catch {
-            Write-Host ""
-            Write-Host $_.Exception.Message -ForegroundColor Red
-            Write-Host $_.ScriptStackTrace
-            Write-Host ""
+            Write-Output ""
+            Write-Output $_.Exception.Message -ForegroundColor Red
+            Write-Output $_.ScriptStackTrace
+            Write-Output ""
         }
     }
-    Write-Host "`nCompleted sorting the different file types in their own folder`n" -ForegroundColor Green
+    Write-Output "`nCompleted sorting the different file types in their own folder`n" -ForegroundColor Green
 }
 
 # ==================== GUI ==================== #
 
 ## visable Menu for user
-Write-Host "1: Enter 1 to sort the Downloads Folder"
-Write-Host "Q: Enter Q to quit."
+Write-Output "1: Enter 1 to sort the Downloads Folder"
+Write-Output "Q: Enter Q to quit."
 
 $user_input = (Read-Host "Please decide: ").ToUpper()
 
 switch ($user_input){
     '1' {sorter}
-    'Q' {Write-Host "The script has been terminated" -BackgroundColor Red -ForegroundColor White}
-    Default {Write-Host "Your selection = $user_input, is not valid. Please try again." -BackgroundColor Red -ForegroundColor White}
+    'Q' {Write-Output "The script has been terminated" -BackgroundColor Red -ForegroundColor White}
+    Default {Write-Output "Your selection = $user_input, is not valid. Please try again." -BackgroundColor Red -ForegroundColor White}
 }
 pause
