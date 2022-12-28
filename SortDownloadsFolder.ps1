@@ -24,7 +24,7 @@ $fileExtensions = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !D
 
 # Add the file extensions to the list box
 foreach ($fileExtension in $fileExtensions) {
-  $listBox.Items.Add($fileExtension.Extension)
+  $null = $listBox.Items.Add($fileExtension.Extension)
 }
 
 # Declare a variable to store the target folder
@@ -49,7 +49,7 @@ $selectFolderButton.Add_Click({
   if ($result -eq "OK") {
     # Set the selected folder as the target folder
     $global:targetFolder = $folderBrowserDialog.SelectedPath
-    write-host "$global:targetFolder"
+    write-output "$global:targetFolder"
   }
 })
 
