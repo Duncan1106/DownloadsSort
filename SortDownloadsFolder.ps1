@@ -99,7 +99,7 @@ Function sorter{
                     Write-Output "Succesfully moved $($File.FullName) to $PictureFolderPath"
                     Write-Output "Sorted Pictures`n"
                 }
-            }        
+            }       
         }
         Catch {
             Write-Output ""
