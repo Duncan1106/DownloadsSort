@@ -22,6 +22,16 @@ $DownloadsFolderPath = (New-Object -ComObject Shell.Application).NameSpace('shel
 # Get all file extensions in the download folder
 $fileExtensions = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory | Select-Object Extension | Sort-Object Extension -Unique
 
+# Create a text field to display the selected folder
+$selectedFolderTextBox = New-Object System.Windows.Forms.TextBox
+$selectedFolderTextBox.Width = 250
+$selectedFolderTextBox.Height = 50
+$selectedFolderTextBox.Location = New-Object System.Drawing.Point(220, 90)
+$selectedFolderTextBox.WordWrap = $true
+
+# Add the text field to the form
+$form.Controls.Add($selectedFolderTextBox)
+
 # Add the file extensions to the list box
 foreach ($fileExtension in $fileExtensions) {
 	$null = $listBox.Items.Add($fileExtension.Extension)
@@ -47,9 +57,9 @@ $selectFolderButton.Add_Click({
 
 	# Check if the user selected a folder
 	if ($result -eq "OK") {
-	# Set the selected folder as the target folder
-	$global:targetFolder = $folderBrowserDialog.SelectedPath
-	write-output "$global:targetFolder"
+		# Set the selected folder as the target folder
+		$global:targetFolder = $folderBrowserDialog.SelectedPath
+		$selectedFolderTextBox.Text = $global:targetFolder
 	}
 })
 
