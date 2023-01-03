@@ -72,24 +72,37 @@ $sortButton.Add_Click({
   if ($selectedExtension) {
     # Check if the user entered a target folder
     if ($global:targetFolder) {
-      # Get all files with the selected file extension in the download folder
-      $files = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory -Filter "*$selectedExtension"
+        # Get all files with the selected file extension in the download folder
+        $files = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory -Filter "*$selectedExtension"
 
-			# Loop through each file
-      foreach ($file in $files) {
-        # Output the file name and target folder
-				$targetFile = "$DownloadsFolderPath/$file"
-        Write-Host "Moving file $targetFile to folder $global:targetFolder"
+    	# Loop through each file
+        foreach ($file in $files) {
+            # Output the file name and target folder
+    				$targetFile = "$DownloadsFolderPath/$file"
+            Write-Host "Moving file $targetFile to folder $global:targetFolder"
 
-        # Move the file to the target folder
-        try {
-          # Move the file to the target folder
-          Move-Item -Path $targetFile -Destination $global:targetFolder
-        } catch {
-          # If the file already exists in the target folder, output a message and skip the file
-          Write-Output "Skipping file $file because it already exists in the target folder"
+            # Move the file to the target folder
+            try {
+              # Move the file to the target folder
+              Move-Item -Path $targetFile -Destination $global:targetFolder
+            } catch {
+              # If the file already exists in the target folder, output a message and skip the file
+              Write-Output "Skipping file $file because it already exists in the target folder"
+            }
         }
-      }
+        # Remove the sorted file extension from the list box
+        $listBox.Items.Remove($selectedExtension)
+
+        # Clear the list box
+        $listBox.Items.Clear()
+
+        # Get the remaining file extensions in the download folder
+        $fileExtensions = Get-ChildItem -LiteralPath $DownloadsFolderPath -Attributes !Directory | Select-Object Extension | Sort-Object Extension -Unique
+
+        # Add the remaining file extensions to the list box
+        foreach ($fileExtension in $fileExtensions) {
+          $null = $listBox.Items.Add($fileExtension.Extension)
+        }
     } else {
       # Skip the files with the selected file extension
       Write-Output "Skipping files with extension $selectedExtension"
