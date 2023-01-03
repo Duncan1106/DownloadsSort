@@ -78,16 +78,15 @@ $sortButton.Add_Click({
 			# Loop through each file
 			foreach ($file in $files) {
 				# Output the file name and target folder
-						$targetFile = "$DownloadsFolderPath/$file"
-				Write-Host "Moving file $targetFile to folder $global:targetFolder"
-
+				$targetFile = "$DownloadsFolderPath\$file"
+				Write-Output "Moving file $targetFile to folder $global:targetFolder\$file" | Out-File "$DownloadsFolderPath/moved.log" -Append
 				# Move the file to the target folder
 				try {
 					# Move the file to the target folder
 					Move-Item -Path $targetFile -Destination $global:targetFolder
 				} catch {
 					# If the file already exists in the target folder, output a message and skip the file
-					Write-Output "Skipping file $file because it already exists in the target folder"
+					Write-Output "Skipping file $file because it already exists in the target folder" | Out-File "$DownloadsFolderPath/moved.log" -Append
 				}
 			}
 			# Remove the sorted file extension from the list box
